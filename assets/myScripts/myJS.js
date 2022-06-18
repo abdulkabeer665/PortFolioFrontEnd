@@ -1,12 +1,9 @@
 $(document).ready(function() {
-
-    function image() {
-        alert("alter")
-    }
-    
+   
     //#region  APIURL
     
-    const urlIP = 'http://10.0.2.222:9000/';
+    // const urlIP = 'http://10.0.2.222:9000/';
+    const urlIP = 'http://192.168.1.10:9000/';
 
     //#endregion
 
@@ -35,6 +32,8 @@ $(document).ready(function() {
         success: function (data, status) {
             $("#websiteTitle").text($("#websiteTitle").text().replace("", data[0]["title"].toString() + " - Index"));
             $("#myName").text($("#myName").text().replace("", data[0]["title"].toString()));
+            $("#myNameSummary").text($("#myNameSummary").text().replace("", data[0]["title"].toString()));
+            $("#summaryDesc").text($("#summaryDesc").text().replace("", ));
             $("#myNameFooter1").text($("#myNameFooter").text().replace("", data[0]["title"].toString()));
             $("#myNameFooter2").text($("#myNameFooter2").text().replace("", data[0]["title"].toString()));
             $("#myNameFooter3").text($("#myNameFooter3").text().replace("", data[0]["title"].toString()));
@@ -127,8 +126,6 @@ $(document).ready(function() {
     
     //#region  Personal Info
 
-    
-
     $.ajax({
         type: 'GET',
         dataType:"JSON",
@@ -140,9 +137,8 @@ $(document).ready(function() {
             // console.log(data)
             var image = new Image();
             var image123 = data[0]["image"].toString();
-            console.log(image123)
             image.src = image123;
-            console.log(image.src)
+            image.height = 370;
             $("#imageDiv").append(image);
             
             var city = data[0]["city"].toString();
@@ -170,9 +166,12 @@ $(document).ready(function() {
             $("#ageVal").text($("#ageVal").text().replace("", myAge));
             $("#cityVal").text($("#cityVal").text().replace("", city));
             $("#phoneNoVal").text($("#phoneNoVal").text().replace("", phoneNo));
+            $("#summaryNumber").text($("#summaryNumber").text().replace("", phoneNo));
             $("#educationVal").text($("#educationVal").text().replace("", education));
             $("#emailIdVal").text($("#emailIdVal").text().replace("", emailId));
+            $("#summaryEmail").text($("#summaryEmail").text().replace("", emailId));
             $("#contactAddress").text($("#contactAddress").text().replace("", myAddress));
+            $("#summaryLocation").text($("#summaryLocation").text().replace("", myAddress));
             $("#contactEmailId").text($("#contactEmailId").text().replace("", emailId));
             $("#contactPhoneNo").text($("#contactPhoneNo").text().replace("", phoneNo));
         }
@@ -201,7 +200,7 @@ $(document).ready(function() {
     //#endregion
 
     //#region  Skills
-
+    
     $.ajax({
         type: 'GET',
         dataType:"JSON",
@@ -246,7 +245,7 @@ $(document).ready(function() {
 
     //#endregion
 
-    //#region Post Message 
+    //#region Post Message
 
     $("#btnSubmit").click(function () {
         var clientMessage = {
@@ -280,6 +279,8 @@ $(document).ready(function() {
      })
 
     //#endregion
+
+    //#region Image Work
 
     var base64String = "";
   
@@ -333,4 +334,72 @@ $(document).ready(function() {
         alert(base64String);
     })
 
+    //#endregion
+
+    //#region Education Section
+
+    $.ajax({
+        type: 'GET',
+        dataType:"JSON",
+        url: urlIP + 'api/PortFolio/GetEducationInfo',
+        headers:{         
+            // 'Authorization' : 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBWZXIiOiIwLjAuMCIsImV4cCI6NDcyNjM4OTEyMiwibG9jYWxlIjoiIiwibWFzdGVyVmVyIjoiIiwicGxhdGZvcm0iOiIiLCJwbGF0Zm9ybVZlciI6IiIsInVzZXJJZCI6IiJ9.QIZbmB5_9Xlap_gDhjETfMI6EAmR15yBtIQkWFWJkrg',
+        },
+        success: function (data, status) {
+            // console.log(data)    
+            for (var i = 0; i < data.length; i++) {
+                var eduDesc = data[i]["educationDesc"].toString();              
+                var eduInst = data[i]["educationInstitute"].toString();              
+                var eduTitle = data[i]["educationTitle"].toString();              
+                var yearFrom = data[i]["educationYearsFrom"].toString().split('-');
+                var yearTo = data[i]["educationYearsTo"].toString().split('-');
+                // console.log(yearFrom[0]);
+                // console.log(yearTo[0]);
+                $("#eduSections").append('<div class="resume-item"><h4>' + eduTitle + '</h4><h5>' + yearFrom[0] + ' - ' + yearTo[0] + '</h5><p><em>' + eduInst + '</em></p><p>' + eduDesc + '</p></div>');
+            }
+        }
+    });
+
+    //#endregion
+
+    //#region Education Section
+
+    $.ajax({
+        type: 'GET',
+        dataType:"JSON",
+        url: urlIP + 'api/PortFolio/GetProfessionInfo',
+        headers:{         
+            // 'Authorization' : 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBWZXIiOiIwLjAuMCIsImV4cCI6NDcyNjM4OTEyMiwibG9jYWxlIjoiIiwibWFzdGVyVmVyIjoiIiwicGxhdGZvcm0iOiIiLCJwbGF0Zm9ybVZlciI6IiIsInVzZXJJZCI6IiJ9.QIZbmB5_9Xlap_gDhjETfMI6EAmR15yBtIQkWFWJkrg',
+        },
+        success: function (data, status) {
+            for (var i = 0; i < data.length; i++) {
+                var proCompany = data[i]["professionCompany"].toString();              
+                var proDesc = data[i]["professionDesc"].toString().split('|');
+                var proTitle = data[i]["professionTitle"].toString();              
+                var yearFrom = data[i]["professionYearFrom"].toString().split('-');
+                var yearTo = data[i]["professionYearTo"].toString().split('-');
+                var aa = data[i]["professionYearTo"].toString().slice(0,10);
+                var today1 = new Date();
+                var dd1 = String(today1.getDate()).padStart(2, '0');
+                var mm1 = String(today1.getMonth() + 1).padStart(2, '0');
+                var yyyy1 = today1.getFullYear();
+                today1 = yyyy1 + '-' + mm1 + '-' + dd1;
+                if(aa == today1) {
+                    $("#professionSection").append('<div class="resume-item"><h4>' + proTitle + '</h4><h5>' + yearFrom[0] + ' - Present</h5><p><em>' + proCompany + ' </em></p><ul id="liAppend"></ul></div>');
+                    for (var j = 0; j < proDesc.length; j++) {
+                        $("#liAppend").append('<li>' + proDesc[j] + '</li>');
+                    }
+                }
+                else {
+                    var istring = i.toString();
+                    $("#professionSection").append('<div class="resume-item"><h4>' + proTitle + '</h4><h5>' + yearFrom[0] + ' - ' + yearTo[0] + '</h5><p><em>' + proCompany + ' </em></p><ul id="liAppend' + istring + '"></ul></div>');    
+                    for (var k = 0; k < proDesc.length; k++) {
+                        $("#liAppend" + istring + "").append('<li>' + proDesc[k] + '</li>');
+                    }
+                }
+            }
+        }
+    });
+
+    //#endregion
 });

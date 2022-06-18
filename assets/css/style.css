@@ -452,6 +452,17 @@ section {
   background-color: #0563bb;
 }
 
+/* .cover-wrapper{height:20px; width:200px; background-color:blue;margin:10px;}
+
+.cover-wrapper:nth-of-type(6n+2) .cover-inner {
+    background-color: yellow;
+}
+.cover-wrapper:nth-of-type(6n+3) .cover-inner {
+     background-color: orange;
+} */
+
+
+
 /*--------------------------------------------------------------
 # Resume
 --------------------------------------------------------------*/
