@@ -3,6 +3,7 @@ $(document).ready(function() {
     //#region  APIURL
     
     // const urlIP = 'http://10.0.2.222:9000/';
+    //const urlIP = 'https://localhost:44301/';
     const urlIP = 'http://192.168.1.10:9000/';
 
     //#endregion
@@ -139,6 +140,7 @@ $(document).ready(function() {
             var image123 = data[0]["image"].toString();
             image.src = image123;
             image.height = 370;
+            image.style.marginLeft = "70px";
             $("#imageDiv").append(image);
             
             var city = data[0]["city"].toString();
@@ -194,6 +196,32 @@ $(document).ready(function() {
             $("#projects").attr("data-purecounter-end", data[0]["factProjects"].toString());
             $("#hoursofSupport").attr("data-purecounter-end", data[0]["factHoursofSupport"].toString());
             $("#awards").attr("data-purecounter-end", data[0]["awards"].toString());
+        }
+    });
+
+    //#endregion
+
+    //#region PortFolio Section
+
+    $.ajax({
+        type: 'GET',
+        dataType:"JSON",
+        url: urlIP + 'api/PortFolio/GetPortFolioInfo',
+        headers:{         
+            // 'Authorization' : 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBWZXIiOiIwLjAuMCIsImV4cCI6NDcyNjM4OTEyMiwibG9jYWxlIjoiIiwibWFzdGVyVmVyIjoiIiwicGxhdGZvcm0iOiIiLCJwbGF0Zm9ybVZlciI6IiIsInVzZXJJZCI6IiJ9.QIZbmB5_9Xlap_gDhjETfMI6EAmR15yBtIQkWFWJkrg',
+        },
+        success: function (data, status) {
+            
+            var image = new Image();
+            for (var i = 0; i < data.length; i++) {
+                var portFolioDesc = data[i]["portFolioDesc"].toString();
+                var image1234 = data[i]["portFolioImage"].toString();
+                var portFolioTitle = data[i]["portFolioTitle"].toString();
+                var portFolioType = data[i]["portFolioType"].toString();
+                image.src = image1234;
+                $("#portFolioDiv").append('<div class="col-lg-4 col-md-6 portfolio-item ' + portFolioType + '"><div class="portfolio-wrap"><img src="' + image1234 + '" class="img-fluid" alt=""><div class="portfolio-info"><h4>' + portFolioTitle + '</h4><p>' + portFolioDesc + '</p><div class="portfolio-links"><a href="' + image1234 + '" data-gallery="portfolioGallery" class="portfolio-lightbox" title="' + portFolioTitle + '"><i class="bx bx-plus"></i></a><a href="portfolio-details.html" class="portfolio-details-lightbox" data-glightbox="type: external" title="Portfolio Details"><i class="bx bx-link"></i></a></div></div></div></div>')
+                // $("#portFolioDiv").append('<div class="col-lg-4 col-md-6 portfolio-item filter-app"><div class="portfolio-wrap"><img src="assets/img/portfolio/portfolio-1.jpg" class="img-fluid" alt=""><div class="portfolio-info"><h4>App 1</h4><p>App</p><div class="portfolio-links"><a href="assets/img/portfolio/portfolio-1.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="App 1"><i class="bx bx-plus"></i></a><a href="portfolio-details.html" class="portfolio-details-lightbox" data-glightbox="type: external" title="Portfolio Details"><i class="bx bx-link"></i></a></div></div></div></div>')
+            }
         }
     });
 
@@ -257,6 +285,7 @@ $(document).ready(function() {
         if (clientMessage.clientName == "" || clientMessage.clientEmail == "" || clientMessage.subject == "" || clientMessage.clientMessage == ""){}
         else {
             $(".loading").fadeIn("d-block");
+            debugger
             $.ajax({            
                 url: urlIP + 'api/PortFolio/InsertMessage',
                 type: 'POST',
@@ -273,7 +302,7 @@ $(document).ready(function() {
                     $("#email").val('');
                     $("#subject").val('');
                     $("#message").val('');                  
-                },
+                }
             });
         }
      })
@@ -362,7 +391,7 @@ $(document).ready(function() {
 
     //#endregion
 
-    //#region Education Section
+    //#region Professional Section
 
     $.ajax({
         type: 'GET',
@@ -402,4 +431,42 @@ $(document).ready(function() {
     });
 
     //#endregion
+
+    $('.btnModal').click( function () {
+        $('#exampleModal').modal('show'); 
+    });
+
+    $('#crossBtnModal').click( function () {
+        $('#exampleModal').modal('hide');
+        $('#inputUserName').val('');
+        $('#inputPassword').val('');
+    });
+
+    $('#btnLogin').click( function () {
+        var loginCredentials = {
+            loginID : $('#inputUserName').val(),
+            password : $('#inputPassword').val()
+        }
+        if (loginCredentials.loginID == "" || loginCredentials.password == ""){
+            alert("Please Insert Both Login Credentails");
+            $('#exampleModal').modal('show'); 
+        }
+        else {
+            debugger
+            $.ajax({            
+                url: urlIP + 'api/PortFolio/GetLoginDetails',
+                type: 'POST',
+                dataType: 'JSON',
+                contentType: 'application/json',
+                data: JSON.stringify(loginCredentials),
+                success: function (data) {
+                    console.log(data);
+                    $('#exampleModal').modal('hide');
+                    window.location = "/admin-page.html";
+                }
+            });
+        }
+    });
+
+
 });

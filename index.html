@@ -53,6 +53,7 @@
         <li><a href="#portfolio" class="nav-link scrollto"><i class="bx bx-book-content"></i> <span>Portfolio</span></a></li>
         <li><a href="#services" class="nav-link scrollto"><i class="bx bx-server"></i> <span>Services</span></a></li>
         <li><a href="#contact" class="nav-link scrollto"><i class="bx bx-envelope"></i> <span>Contact</span></a></li>
+        <li><a href="#login" class="nav-link scrollto btnModal"><i class="bx bx-log-in"></i> <span>Sign In</span></a></li>
       </ul>
     </nav><!-- .nav-menu -->
 
@@ -89,9 +90,8 @@
         </div>
 
         <div class="row">
-          <div class="col-lg-4" id="imageDiv" style="height: 40%;">
+          <div class="col-lg-4" id="imageDiv">
             <!-- <img src="assets/img/profile-img.jpg" class="img-fluid" alt=""> -->
-            
           </div>
           <div class="col-lg-8 pt-4 pt-lg-0 content">
             <!-- <h3>UI/UX Designer &amp; Web Developer.</h3> -->
@@ -352,9 +352,9 @@
           </div>
         </div>
 
-        <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200">
+        <div class="row portfolio-container" id="portFolioDiv" data-aos="fade-up" data-aos-delay="200">
 
-          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+          <!-- <div class="col-lg-4 col-md-6 portfolio-item filter-app">
             <div class="portfolio-wrap">
               <img src="assets/img/portfolio/portfolio-1.jpg" class="img-fluid" alt="">
               <div class="portfolio-info">
@@ -366,9 +366,9 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
 
-          <div class="col-lg-4 col-md-6 portfolio-item filter-web">
+           <!-- <div class="col-lg-4 col-md-6 portfolio-item filter-web">
             <div class="portfolio-wrap">
               <img src="assets/img/portfolio/portfolio-2.jpg" class="img-fluid" alt="">
               <div class="portfolio-info">
@@ -478,7 +478,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
 
         </div>
 
@@ -717,11 +717,10 @@
               <div class="my-3">
                 <div class="loading">Loading...</div>
                 <div class="error-message" id="errorMessage"></div>
-                <div class="sent-message">Your message has been sent. Thank you!</div>
+                <div class="sent-message">Your message has been sent. I will get back to you soon. Thank You!</div>
               </div>
               <div class="text-center">
                 <button id="btnSubmit" type="submit">Send Message</button>
-                
               </div>
             </form>
 
@@ -735,13 +734,13 @@
   </main><!-- End #main -->
 
 
-  <input type="file" name="fileId" id="fileId" 
+  <!-- <input type="file" name="fileId" id="fileId" 
         >
     <br><br>
   
     <button id="displayFunction">
         Display String
-    </button>
+    </button> -->
   <!-- ======= Footer ======= -->
   <footer id="footer">
     <div class="container">
@@ -767,6 +766,51 @@
       </div>
     </div>
   </footer><!-- End Footer -->
+
+  <!-- Button trigger modal -->
+<!-- <button type="button" class="btn btn-primary" data-toggle="modal" id="btnModal">
+  Launch demo modal
+</button> -->
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Login Form:</h5>
+        <button type="button" class="close" style="border: none; background: white; font-size: 18px;" data-dismiss="modal" aria-label="Close" id="crossBtnModal">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-sm-2"></div>
+          <div class="col-sm-8">
+            <label style="margin-bottom: 5px;">
+              User Name:
+            </label>
+            <input type="text" class="form-control" id="inputUserName" placeholder="Enter User Name Here">
+          </div>
+          <div class="col-sm-2"></div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-sm-2"></div>
+          <div class="col-sm-8">
+            <label style="margin-bottom: 5px;">
+              Password:
+            </label>
+            <input type="password" class="form-control" id="inputPassword" placeholder="Enter Password Here">
+          </div>
+          <div class="col-sm-2"></div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="btnLogin" class="btn btn-primary">Login</button>
+      </div>
+    </div>
+  </div>
+</div>
 
   <div id="preloader"></div>
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
