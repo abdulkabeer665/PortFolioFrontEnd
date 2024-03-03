@@ -473,7 +473,6 @@ $(document).ready(function() {
                 contentType: 'application/json',
                 data: JSON.stringify(loginCredentials),
                 success: function (data) {
-                    // console.log(data);
                     if(data == "404"){
                         alert("Invalid User.");
                     }
