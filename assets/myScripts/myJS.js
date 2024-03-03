@@ -4,7 +4,7 @@ $(document).ready(function() {
     
     // const urlIP = 'http://10.0.2.222:9000/';
     //const urlIP = 'https://localhost:44301/';
-    const urlIP = 'http://192.168.1.10:9000/';
+    const urlIP = 'http://192.168.1.25:7241/';
 
     //#endregion
 
@@ -433,13 +433,13 @@ $(document).ready(function() {
     //#endregion
 
     $('.btnModal').click( function () {
-        $('#exampleModal').modal('show'); 
+        $('#exampleModal').modal('show');
+        $('#inputUserName').val('');
+        $('#inputPassword').val('');
     });
 
     $('#crossBtnModal').click( function () {
         $('#exampleModal').modal('hide');
-        $('#inputUserName').val('');
-        $('#inputPassword').val('');
     });
 
     $('#btnLogin').click( function () {
@@ -462,11 +462,13 @@ $(document).ready(function() {
                 success: function (data) {
                     console.log(data);
                     $('#exampleModal').modal('hide');
-                    window.location = "/admin-page.html";
+                    window.location = "../PortFolioFrontEnd/admin-page.html";
+                },
+                error: function(data){
+                    console.log(data);
                 }
             });
         }
     });
-
 
 });
