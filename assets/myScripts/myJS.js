@@ -36,6 +36,7 @@ $(document).ready(function() {
             $("#myNameSummary").text($("#myNameSummary").text().replace("", data[0]["title"].toString()));
             $("#summaryDesc").text($("#summaryDesc").text().replace("", ));
             $("#myNameFooter1").text($("#myNameFooter").text().replace("", data[0]["title"].toString()));
+            $("#footerText").text('Crafting elegant solutions through code to bring ideas to life.');
             $("#myNameFooter2").text($("#myNameFooter2").text().replace("", data[0]["title"].toString()));
             $("#myNameFooter3").text($("#myNameFooter3").text().replace("", data[0]["title"].toString()));
         }
@@ -211,7 +212,7 @@ $(document).ready(function() {
             // 'Authorization' : 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBWZXIiOiIwLjAuMCIsImV4cCI6NDcyNjM4OTEyMiwibG9jYWxlIjoiIiwibWFzdGVyVmVyIjoiIiwicGxhdGZvcm0iOiIiLCJwbGF0Zm9ybVZlciI6IiIsInVzZXJJZCI6IiJ9.QIZbmB5_9Xlap_gDhjETfMI6EAmR15yBtIQkWFWJkrg',
         },
         success: function (data, status) {
-            
+            var text = "";
             var image = new Image();
             for (var i = 0; i < data.length; i++) {
                 var portFolioDesc = data[i]["portFolioDesc"].toString();
@@ -219,16 +220,28 @@ $(document).ready(function() {
                 var portFolioTitle = data[i]["portFolioTitle"].toString();
                 var portFolioType = data[i]["portFolioType"].toString();
                 image.src = image1234;
-                $("#portFolioDiv").append('<div class="col-lg-4 col-md-6 portfolio-item ' + portFolioType + '"><div class="portfolio-wrap"><img src="' + image1234 + '" class="img-fluid" alt=""><div class="portfolio-info"><h4>' + portFolioTitle + '</h4><p>' + portFolioDesc + '</p><div class="portfolio-links"><a href="' + image1234 + '" data-gallery="portfolioGallery" class="portfolio-lightbox" title="' + portFolioTitle + '"><i class="bx bx-plus"></i></a><a href="portfolio-details.html" class="portfolio-details-lightbox" data-glightbox="type: external" title="Portfolio Details"><i class="bx bx-link"></i></a></div></div></div></div>')
-                // $("#portFolioDiv").append('<div class="col-lg-4 col-md-6 portfolio-item filter-app"><div class="portfolio-wrap"><img src="assets/img/portfolio/portfolio-1.jpg" class="img-fluid" alt=""><div class="portfolio-info"><h4>App 1</h4><p>App</p><div class="portfolio-links"><a href="assets/img/portfolio/portfolio-1.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="App 1"><i class="bx bx-plus"></i></a><a href="portfolio-details.html" class="portfolio-details-lightbox" data-glightbox="type: external" title="Portfolio Details"><i class="bx bx-link"></i></a></div></div></div></div>')
+                text += '<div class="col-lg-4 col-md-6 portfolio-item ' + portFolioType + '">';
+                text += '<div class="portfolio-wrap"><img src="' + image1234 + '" class="img-fluid" alt="">';
+                text += '<div class="portfolio-info"><h4>' + portFolioTitle + '</h4><p>' + portFolioDesc + '</p>';
+                text += '<div class="portfolio-links"><a href="' + image1234 + '" data-gallery="portfolioGallery" class="portfolio-lightbox" title="' + portFolioTitle + '"><i class="bx bx-plus"></i></a><a href="portfolio-details.html" class="portfolio-details-lightbox" data-glightbox="type: external" title="Portfolio Details"><i class="bx bx-link"></i></a></div>';
+                text += '</div>';
+                text += '</div>';
+                text += '</div>';
+                
+                // $("#portFolioDiv").append('')
+                // // $("#portFolioDiv").append('<div class="col-lg-4 col-md-6 portfolio-item filter-app"><div class="portfolio-wrap"><img src="assets/img/portfolio/portfolio-1.jpg" class="img-fluid" alt=""><div class="portfolio-info"><h4>App 1</h4><p>App</p><div class="portfolio-links"><a href="assets/img/portfolio/portfolio-1.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="App 1"><i class="bx bx-plus"></i></a><a href="portfolio-details.html" class="portfolio-details-lightbox" data-glightbox="type: external" title="Portfolio Details"><i class="bx bx-link"></i></a></div></div></div></div>')
             }
+
+            setTimeout(() => {
+                $("#portFolioDiv").append(text);
+            }, 2000);
         }
     });
 
     //#endregion
 
     //#region  Skills
-    
+  
     $.ajax({
         type: 'GET',
         dataType:"JSON",
@@ -285,7 +298,7 @@ $(document).ready(function() {
         if (clientMessage.clientName == "" || clientMessage.clientEmail == "" || clientMessage.subject == "" || clientMessage.clientMessage == ""){}
         else {
             $(".loading").fadeIn("d-block");
-            debugger
+            // debugger
             $.ajax({            
                 url: urlIP + 'api/PortFolio/InsertMessage',
                 type: 'POST',
@@ -452,7 +465,7 @@ $(document).ready(function() {
             $('#exampleModal').modal('show'); 
         }
         else {
-            debugger
+            // debugger
             $.ajax({            
                 url: urlIP + 'api/PortFolio/GetLoginDetails',
                 type: 'POST',
@@ -460,12 +473,14 @@ $(document).ready(function() {
                 contentType: 'application/json',
                 data: JSON.stringify(loginCredentials),
                 success: function (data) {
-                    console.log(data);
-                    $('#exampleModal').modal('hide');
-                    window.location = "../PortFolioFrontEnd/admin-page.html";
-                },
-                error: function(data){
-                    console.log(data);
+                    // console.log(data);
+                    if(data == "404"){
+                        alert("Invalid User.");
+                    }
+                    else{
+                        $('#exampleModal').modal('hide');
+                        window.location = "../PortFolioFrontEnd/admin-page.html";
+                    }
                 }
             });
         }
